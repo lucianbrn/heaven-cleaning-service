@@ -19,7 +19,7 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:'Inter',Arial,sans-serif;color:var(--ink);background:var(--cream);line-height:1.6;font-size:17px;overflow-x:hidden}
+body{font-family:'Inter',Arial,sans-serif;color:var(--ink);background:#fff;line-height:1.6;font-size:17px;overflow-x:hidden}
 body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.05;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E")}
 body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
@@ -53,7 +53,7 @@ a{color:var(--deep)}
 .ticker-track i{color:var(--gold-lt);font-style:normal}
 @keyframes belt{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media (prefers-reduced-motion:reduce){.ticker-track{animation:none}}
-header.top{position:relative;background:rgba(250,243,236,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+header.top{position:relative;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 .top-in{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0}
 .brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--ink)}
 .brand .mark{width:40px;height:40px;flex:none}
