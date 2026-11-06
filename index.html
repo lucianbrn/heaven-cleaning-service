@@ -251,6 +251,33 @@ html.jsr .reveal.in{opacity:1;transform:none}
 body{overflow-x:clip}
 @media (max-width:760px){ .seal{right:2px;top:-30px;width:92px;height:92px} }
 .foot-chip{display:inline-block;background:var(--cream);border-radius:12px;padding:10px 16px 6px;margin-bottom:12px}.foot-chip img{height:64px;width:auto;display:block}
+
+.card-btn{display:flex;width:100%;min-height:50px;align-items:center;justify-content:center;margin-top:16px;background:linear-gradient(160deg,#C39B7E,#A57660);color:#241118;border:0;border-radius:999px;font:700 .95rem 'Inter',sans-serif;cursor:pointer;box-shadow:0 8px 18px rgba(165,118,96,.30)}
+.card-btn:active{transform:scale(.98)}
+@media (max-width:760px){
+  section[id]{scroll-margin-top:104px}
+  body{-webkit-tap-highlight-color:transparent}
+  a,button,select,input,textarea,label,summary{touch-action:manipulation}
+  .flag-btn{min-width:46px;min-height:46px;padding:9px 11px;display:inline-flex;align-items:center;justify-content:center}
+  .book-btn{padding:14px 18px}
+  .hero-ctas .btn{min-height:54px;display:inline-flex;align-items:center;justify-content:center}
+  .strip{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:16px;padding:4px 2px 16px;scrollbar-width:none}
+  .strip::-webkit-scrollbar{display:none}
+  .strip figure{flex:0 0 84%;scroll-snap-align:center}
+  .strip img{height:230px}
+  .estimator select{min-height:54px;font-size:1rem}
+  .estimator .est-btn{width:100%;min-height:54px;display:flex;align-items:center;justify-content:center}
+  .est-addons label{min-height:44px}
+  .fg input,.fg select,.fg textarea{min-height:52px}
+  .faq summary{padding:10px 0}
+  .chips span{padding:9px 15px}
+  .mobilebar{gap:10px}
+  .mobilebar .mb-txt{display:flex;flex-direction:column;line-height:1.1;font-size:.78rem;color:#DCC4CE}
+  .mobilebar .mb-txt b{font-size:1.02rem;color:#F3E4D8}
+  .mobilebar a{flex:1;text-align:center;padding:15px 4px}
+  .mobilebar a.mb-book{background:transparent;border:1.5px solid #D9BBA6;color:#F3E4D8;flex:0 0 30%}
+  .mascot{transform:scale(.88);transform-origin:bottom right}
+}
 </style>
 </head>
 <body>
@@ -355,6 +382,7 @@ body{overflow-x:clip}
           <div><span data-es="3 cuartos o más">3 Bedroom &amp; Larger</span><b>$285+</b></div>
         </div>
         <div class="addons"><span data-es="Nevera brillante +$35">Sparkle the Fridge +$35</span><span data-es="Horno brillante +$30">Shine the Oven +$30</span></div>
+      <button type="button" class="card-btn" data-clean="std" data-es="Ver el precio de esta limpieza">Price this clean</button>
       </article>
       <article class="svc blush">
         <h3 data-es="Limpieza Profunda Heaven">Heaven's Deep Clean</h3>
@@ -374,6 +402,7 @@ body{overflow-x:clip}
           <div><span data-es="3 cuartos o más">3 Bedroom &amp; Larger</span><b data-es="desde $350+">from $350+</b></div>
         </div>
         <div class="addons"><span data-es="Nevera brillante +$35">Sparkle the Fridge +$35</span><span data-es="Horno brillante +$30">Shine the Oven +$30</span></div>
+      <button type="button" class="card-btn" data-clean="deep" data-es="Ver el precio de esta limpieza">Price this clean</button>
       </article>
       <article class="svc sage">
         <h3 data-es="Limpieza de Mudanza">Heaven's Move-In / Move-Out</h3>
@@ -394,6 +423,7 @@ body{overflow-x:clip}
           <div><span data-es="3 cuartos o más">3 Bedroom &amp; Larger</span><b>$450+</b></div>
         </div>
         <div class="addons"><span data-es="Nevera brillante +$35">Sparkle the Fridge +$35</span><span data-es="Horno brillante +$30">Shine the Oven +$30</span></div>
+      <button type="button" class="card-btn" data-clean="move" data-es="Ver el precio de esta limpieza">Price this clean</button>
       </article>
     </div>
     <p class="note" data-es="Precios tomados del sitio actual de Heaven Cleaning Service, revisados en noviembre de 2026. El precio final depende del hogar — Ellie lo confirma contigo.">Prices as published on Heaven Cleaning Service's current site, checked November 2026. Final price depends on the home — Ellie confirms it with you.</p>
@@ -590,6 +620,12 @@ if('IntersectionObserver' in window){
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 } else { document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in')); }
 setTimeout(()=>document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in')),2600);
+
+document.querySelectorAll('.card-btn').forEach(b=>b.addEventListener('click',()=>{
+  document.getElementById('eType').value=b.dataset.clean;
+  if(window.__estRender) window.__estRender();
+  document.getElementById('estimator').scrollIntoView({behavior:'smooth'});
+}));
 // Booking form — same FormSubmit inbox as Heaven's current site
 const form=document.getElementById('bookingForm'), toast=document.getElementById('toast');
 form.addEventListener('submit',async e=>{
@@ -610,6 +646,6 @@ form.addEventListener('submit',async e=>{
   btn.disabled=false; btn.textContent=orig;
 });
 </script>
-<div class="mobilebar"><span data-es="Limpiezas desde $120">Cleans from $120</span><a href="#estimator" data-es="Ver mi precio">See My Price</a></div>
+<div class="mobilebar"><div class="mb-txt"><span data-es="Limpiezas desde">Cleans from</span><b>$120</b></div><a href="#estimator" data-es="Ver mi precio">See My Price</a><a class="mb-book" href="#book" data-es="Reservar">Book</a></div>
 </body>
 </html>
