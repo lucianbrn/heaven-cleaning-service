@@ -186,6 +186,7 @@ footer p{color:var(--muted);font-size:.9rem;max-width:560px;margin:6px auto}
 .mascot{position:fixed;right:18px;bottom:18px;z-index:60;width:74px;height:74px;cursor:pointer;background:none;border:0}
 .mascot .body{animation:bob 3.6s ease-in-out infinite}
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.bubble-count{display:block;margin-top:6px;font:600 10px 'Inter',sans-serif;letter-spacing:.12em;color:var(--gold);text-transform:uppercase}
 .mascot .bubble{position:absolute;right:82px;bottom:16px;width:215px;background:var(--paper);border:1.5px solid var(--gold);color:var(--ink);border-radius:14px;padding:11px 14px;font-size:.88rem;text-align:left;opacity:0;transform:translateX(8px);transition:.3s;pointer-events:none;box-shadow:0 12px 26px rgba(44,42,36,.18)}
 .mascot.show .bubble{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
@@ -416,7 +417,7 @@ footer p{color:var(--muted);font-size:.9rem;max-width:560px;margin:6px auto}
 </footer>
 
 <button class="mascot" id="mascot" type="button" aria-label="Say hello">
-  <span class="bubble" data-es="¡Hola! Soy Luz. ¿Empezamos? Toca «Reserva tu limpieza» y Ellie te confirma hoy.">Hi! I'm Luz. Ready when you are — tap Book Your Clean and Ellie will confirm today.</span>
+  <span class="bubble"><span class="bubble-text"></span><span class="bubble-count"></span></span>
   <svg class="body" viewBox="0 0 80 80" aria-hidden="true"><ellipse cx="40" cy="12" rx="17" ry="5.5" fill="none" stroke="#A57660" stroke-width="4"/><path d="M14 34 Q2 26 6 40 Q9 50 20 46 Q12 42 14 34Z" fill="#7C5969"/><path d="M66 34 Q78 26 74 40 Q71 50 60 46 Q68 42 66 34Z" fill="#7C5969"/><circle cx="40" cy="42" r="19" fill="#F2DDD4" stroke="#D3A68C" stroke-width="2"/><circle cx="33" cy="40" r="2.4" fill="#2C2A24"/><circle cx="47" cy="40" r="2.4" fill="#2C2A24"/><path d="M34 49 Q40 54 46 49" stroke="#2C2A24" stroke-width="2.2" fill="none" stroke-linecap="round"/><path d="M40 58 l1.7 3.4 3.7.5 -2.7 2.6 .7 3.7 -3.4-1.8 -3.4 1.8 .7-3.7 -2.7-2.6 3.7-.5Z" fill="#A57660"/></svg>
 </button>
 
@@ -433,14 +434,37 @@ function setLang(l){
   });
   flagEN.classList.toggle('active', lang==='en');
   flagES.classList.toggle('active', lang==='es');
+  if(window.__luzRender) window.__luzRender();
 }
 flagEN.addEventListener('click',()=>setLang('en'));
 flagES.addEventListener('click',()=>setLang('es'));
 // Mascot
 const m=document.getElementById('mascot');
-m.addEventListener('click',()=>m.classList.toggle('show'));
+const LUZ=[
+ ["Hi! I'm Luz. Ready when you are — tap Book Your Clean and Ellie will confirm today.","¡Hola! Soy Luz. ¿Empezamos? Toca «Reserva tu limpieza» y Ellie te confirma hoy."],
+ ["The Standard Clean ($120–$285+): thorough dusting, counters & mirrors, floors swept and mopped, kitchen wipe-down, light bathroom clean, trash out. The calm-keeper.","La Limpieza Estándar ($120–$285+): desempolvado completo, encimeras y espejos, pisos barridos y trapeados, cocina, baño ligero y basura fuera. La que mantiene la calma."],
+ ["The Deep Clean (from $180): baseboards, door frames & switches wiped, fixtures polished, full bathroom clean, and a kitchen deep clean — exterior appliances included.","La Limpieza Profunda (desde $180): zócalos, marcos de puertas e interruptores, grifería pulida, baño completo y cocina profunda — electrodomésticos por fuera incluidos."],
+ ["Moving? The Move-In/Out Clean ($250–$450+) gets inside cabinets & drawers, and inside the oven & fridge. The handover special.","¿Mudanza? La limpieza de Mudanza ($250–$450+) llega dentro de gabinetes y cajones, y dentro del horno y el refrigerador. Lista para entregar las llaves."],
+ ["Little extras, honest prices: Sparkle the Fridge +$35, Shine the Oven +$30 — add either to any clean.","Extras con precios honestos: refrigerador reluciente +$35, horno brillante +$30 — agrégalos a cualquier limpieza."],
+ ["Luz's tip: most homes start with a Deep Clean, then keep the calm with a Standard every week or two.","Consejo de Luz: la mayoría empieza con una Limpieza Profunda y luego mantiene la calma con una Estándar cada semana o dos."],
+ ["How booking works: send the form, Ellie confirms personally, and the final price is set by your home. No surprises.","Así reservas: envía el formulario, Ellie te confirma personalmente, y el precio final depende de tu hogar. Sin sorpresas."],
+ ["One family has trusted us for 20 years. Now we serve Falls Church, McLean, Vienna, Fairfax, Arlington, Alexandria & Tysons.","Una familia confía en nosotras desde hace 20 años. Ahora servimos Falls Church, McLean, Vienna, Fairfax, Arlington, Alexandria y Tysons."],
+ ["We speak your language — English and Spanish, whichever is easier for you.","Hablamos tu idioma — español e inglés, lo que te sea más cómodo."]
+];
+let luzI=0, luzTouched=false;
+const luzT=m.querySelector('.bubble-text'), luzC=m.querySelector('.bubble-count');
+window.__luzRender=function(){
+  luzT.textContent=LUZ[luzI][lang==='es'?1:0];
+  luzC.textContent=(luzI+1)+' / '+LUZ.length+(lang==='es'?' · Toca de nuevo':' · Tap again');
+};
+window.__luzRender();
+m.addEventListener('click',()=>{
+  luzTouched=true;
+  if(m.classList.contains('show') && luzTouched){ luzI=(luzI+1)%LUZ.length; }
+  m.classList.add('show'); window.__luzRender();
+});
 setTimeout(()=>m.classList.add('show'),1600);
-setTimeout(()=>m.classList.remove('show'),9000);
+setTimeout(()=>{ if(!luzTouched) m.classList.remove('show'); },11000);
 // Booking form — same FormSubmit inbox as Heaven's current site
 const form=document.getElementById('bookingForm'), toast=document.getElementById('toast');
 form.addEventListener('submit',async e=>{
