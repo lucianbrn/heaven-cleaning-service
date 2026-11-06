@@ -43,7 +43,15 @@ a{color:var(--deep)}
   background:radial-gradient(closest-side,rgba(217,187,166,.4),transparent);filter:blur(6px)}
 
 /* header */
-header.top{position:sticky;top:0;z-index:50;background:rgba(250,243,236,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topwrap{position:sticky;top:0;z-index:60}
+.ticker{background:var(--deep2);color:#EFDFD2;overflow:hidden;white-space:nowrap;border-bottom:1px solid rgba(217,187,166,.35)}
+.ticker-track{display:inline-flex;padding:7px 0;animation:belt 55s linear infinite;will-change:transform}
+.ticker:hover .ticker-track{animation-play-state:paused}
+.ticker-track span{font:600 11.5px 'Inter',sans-serif;letter-spacing:.14em;text-transform:uppercase;padding:0 14px}
+.ticker-track i{color:var(--gold-lt);font-style:normal}
+@keyframes belt{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.ticker-track{animation:none}}
+header.top{position:relative;background:rgba(250,243,236,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 .top-in{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0}
 .brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--ink)}
 .brand .mark{width:40px;height:40px;flex:none}
@@ -196,6 +204,7 @@ footer p{color:var(--muted);font-size:.9rem;max-width:560px;margin:6px auto}
 </head>
 <body>
 
+<div class="topwrap"><div class="ticker" aria-label="Heaven Cleaning news and offers"><div class="ticker-track"><span data-es="Una familia del norte de Virginia confía en nosotras desde hace 20 años">Trusted by one Northern Virginia family for 20 years</span><i>✦</i><span data-es="Limpieza Estándar desde $120 · Limpieza Profunda desde $180 · Mudanzas desde $250">Standard Clean from $120 · Deep Clean from $180 · Move-In/Out from $250</span><i>✦</i><span data-es="Renovación de otoño — reserva una Limpieza Profunda antes de las fiestas">Fall reset — book a Deep Clean before the holidays</span><i>✦</i><span data-es="Agrega el refrigerador +$35 o el horno +$30 a cualquier limpieza">Add a fridge sparkle +$35 or an oven shine +$30 to any clean</span><i>✦</i><span data-es="Dato curioso: limpiamos de arriba hacia abajo, para que el polvo nunca caiga sobre una superficie ya limpia">Fun fact: we clean top to bottom, so dust never lands on a finished surface</span><i>✦</i><span data-es="Se habla español · We speak English and Spanish">Se habla español · We speak English and Spanish</span><i>✦</i><span data-es="Ahora aceptamos nuevos hogares en el norte de Virginia">Now welcoming new homes across Northern Virginia</span><i>✦</i><span data-es="Falls Church · McLean · Vienna · Fairfax · Arlington · Alexandria · Tysons">Falls Church · McLean · Vienna · Fairfax · Arlington · Alexandria · Tysons</span><i>✦</i><span data-es="Una familia del norte de Virginia confía en nosotras desde hace 20 años">Trusted by one Northern Virginia family for 20 years</span><i>✦</i><span data-es="Limpieza Estándar desde $120 · Limpieza Profunda desde $180 · Mudanzas desde $250">Standard Clean from $120 · Deep Clean from $180 · Move-In/Out from $250</span><i>✦</i><span data-es="Renovación de otoño — reserva una Limpieza Profunda antes de las fiestas">Fall reset — book a Deep Clean before the holidays</span><i>✦</i><span data-es="Agrega el refrigerador +$35 o el horno +$30 a cualquier limpieza">Add a fridge sparkle +$35 or an oven shine +$30 to any clean</span><i>✦</i><span data-es="Dato curioso: limpiamos de arriba hacia abajo, para que el polvo nunca caiga sobre una superficie ya limpia">Fun fact: we clean top to bottom, so dust never lands on a finished surface</span><i>✦</i><span data-es="Se habla español · We speak English and Spanish">Se habla español · We speak English and Spanish</span><i>✦</i><span data-es="Ahora aceptamos nuevos hogares en el norte de Virginia">Now welcoming new homes across Northern Virginia</span><i>✦</i><span data-es="Falls Church · McLean · Vienna · Fairfax · Arlington · Alexandria · Tysons">Falls Church · McLean · Vienna · Fairfax · Arlington · Alexandria · Tysons</span><i>✦</i></div></div>
 <header class="top">
   <div class="wrap top-in">
     <a class="brand" href="#top" aria-label="Heaven Cleaning Service">
@@ -208,7 +217,7 @@ footer p{color:var(--muted);font-size:.9rem;max-width:560px;margin:6px auto}
       <a class="book-btn" href="#book" data-es="Reserva tu limpieza">Book Your Clean</a>
     </div>
   </div>
-</header>
+</header></div>
 
 <main id="top">
   <div class="hero wrap">
